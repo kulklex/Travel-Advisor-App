@@ -13,9 +13,9 @@ import { createTheme } from '@mui/material';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 const theme = createTheme()
 root.render(<ThemeProvider theme={theme}>
-  <React.StrictMode>
+  <>
     <App />
-  </React.StrictMode>
+  </>
 </ThemeProvider>);
 
 reportWebVitals();
