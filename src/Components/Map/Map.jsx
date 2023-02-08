@@ -3,6 +3,7 @@ import GoogleMapReact from 'google-map-react';
 import { LocationOnOutlined } from '@mui/icons-material';
 import useStyles from './styles'
 import { useMediaQuery } from '@mui/material';
+import Rating from '@mui/material';
 
 const Map = () => {
     const classes = useStyles()
