@@ -1,28 +1,33 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, createRef } from 'react';
 import useStyles from './styles'
-import { FormControl, FormLabel, Grid, MenuItem, Select, Typography } from '@mui/material';
+import { CircularProgress, FormControl, FormLabel, Grid, MenuItem, Select, Typography } from '@mui/material';
 import PlaceDetails from './../PlaceDetails/PlaceDetails';
 
 
-const List = () => {
+const List = ({type, setType, rating, setRating, places, childClicked, isLoading}) => {
     const classes = useStyles()
 
-    const [type, setType] = useState('restaurants')
-    const [rating, setRating] = useState('All')
+    
+    const [elementRefs, setElementRefs] = useState([])
 
-    const places = [
-        {name: 'Cool Place'},
-        {name: 'Best Beverages'},
-        {name: 'Nice Suya'},
-        {name: 'Cheaper Options'},
-        {name: 'Amala Hey!'},
-        {name: "Vegetarian's Spot"},
-        {name: 'Frozen Foods'},
-    ]
+    // Anytime there's click on the map, this will make it scroll to that location
+    // The useEffect will repeat this funtionality everytime there's a change in places 
+    useEffect(() => {
+        const refs = Array(places?.length).fill().map((_, i) => elementRefs[i] || createRef()) //Underscore here means we're not interested in the iterated values
+
+        setElementRefs(refs)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [places])
+
+
 
     return (
         <div className={classes.container}>
             <Typography variant='h4' >Restaurants, Hotels & Attractions around you</Typography>
+            
+            {isLoading ? (<div className={classes.loading}>
+                <CircularProgress size="5rem" />
+            </div>) :
             <div>
                 <FormControl className={classes.formControl} style={{padding: '5px'}}>
                     <FormLabel>Type</FormLabel>
@@ -36,18 +41,20 @@ const List = () => {
                 <FormControl className={classes.formControl} style={{padding: '5px'}}>
                     <FormLabel>Rating</FormLabel>
                     <Select id="rating" value={rating} onChange={(e) => setRating(e.target.value)}>
-                        <MenuItem  value="All">All</MenuItem>
+                        <MenuItem  value="">All</MenuItem>
                         <MenuItem value="3">Above 3.0</MenuItem>
                         <MenuItem value="4">Above 4.0</MenuItem>
                         <MenuItem value="4.5">Above 4.5</MenuItem>
                     </Select>
                 </FormControl>
                 <Grid container spacing={3} className={classes.list}>
-                    {places?.map((place) => (<Grid item key={place?.name} xs={12}>
-                        <PlaceDetails place={place}  />
+                    {places?.map((place, i) => (
+                    <Grid item key={i} xs={12}>
+                        <PlaceDetails place={place} selected={Number(childClicked) === i} refProp={elementRefs[i]}/>
                     </Grid>))}
                 </Grid>
             </div>
+            }
         </div>
     );
 }
