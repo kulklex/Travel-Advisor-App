@@ -3,10 +3,11 @@ import { CssBaseline, Grid } from '@mui/material'
 import Header from './Components/Header/Header'
 import Map from './Components/Map/Map'
 import List from './Components/List/List'
-import { getPlacesData } from './api'
+import { getPlacesData, getWeatherData } from './api'
 
 export default function App() {
   const [places, setPlaces] = useState([])
+  const [weather, setWeather] = useState([])
   const [coordinates, setCoordinates] = useState({})
   const [bounds, setBounds] = useState({})
   const [childClicked, setChildClicked] = useState(null)
@@ -41,14 +42,20 @@ export default function App() {
   useEffect(() => {
   if(bounds?.sw && bounds?.ne){
     setIsLoading(true)
-    getPlacesData(type, bounds?.sw, bounds?.ne)
-    .then((data) => {
+
+    getWeatherData(coordinates?.lat, coordinates?.lng).then((data) => {
+      console.log(data);
+      setWeather(data)
+    })
+
+    getPlacesData(type, bounds?.sw, bounds?.ne).then((data) => {
       console.log(data); 
       setPlaces(data)
       setFilteredPlaces([])
       setIsLoading(false)
     })
    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [type, bounds])
 
 
@@ -62,7 +69,7 @@ export default function App() {
           <List type={type} rating={rating} setType={setType} setRating={setRating} places={filteredPlaces?.length ? filteredPlaces : places} childClicked={childClicked} isLoading={isLoading}/>
         </Grid>
         <Grid item xs={12} md={8}>
-          <Map setCoordinates={setCoordinates} setBounds={setBounds} coordinates={coordinates} places={filteredPlaces?.length ? filteredPlaces : places} setChildClicked={setChildClicked}/>
+          <Map setCoordinates={setCoordinates} setBounds={setBounds} coordinates={coordinates} places={filteredPlaces?.length ? filteredPlaces : places} setChildClicked={setChildClicked} weather={weather} />
         </Grid>
       </Grid>
     </>

@@ -6,7 +6,7 @@ import Rating from '@mui/material/Rating';
 import { LocationOnOutlined } from '@mui/icons-material';
 import mapStyles from '../../mapStyles'
 
-const Map = ({setCoordinates, setBounds, coordinates, places, setChildClicked}) => {
+const Map = ({setCoordinates, setBounds, coordinates, places, setChildClicked, weather}) => {
     const classes = useStyles()
     const isDesktop = useMediaQuery('(min-width:600px)')
 
@@ -37,6 +37,10 @@ const Map = ({setCoordinates, setBounds, coordinates, places, setChildClicked}) 
                             className={classes.pointer} alt={places?.name} />)}
                             {place?.rating && (<Rating size="small" value={Number(place?.rating)} readOnly />)}
                         </Paper>)}
+                    </div>))}
+
+                    {weather?.length && weather?.map((data, i) => (<div style={{fontSize: "small"}} key={i}>
+                        {data?.weather?.description}
                     </div>))}
             </GoogleMapReact>
         </div>
