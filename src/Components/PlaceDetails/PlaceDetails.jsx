@@ -4,11 +4,11 @@ import Rating from '@mui/material/Rating'
 import useStyles from './styles'
 import { LocationOnOutlined, PhoneOutlined } from '@mui/icons-material';
 
-const PlaceDetails = ({place, selected, refProps}) => {
+const PlaceDetails = ({place, selected, refProp}) => {
     const classes = useStyles()
     
 
-    if(selected) refProps?.current?.scrollIntoView({behavior: "smooth", block: "start"})
+    if(selected) refProp?.current?.scrollIntoView({behavior: 'smooth', block: 'start'})
 
 
 

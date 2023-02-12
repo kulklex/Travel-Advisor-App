@@ -44,12 +44,10 @@ export default function App() {
     setIsLoading(true)
 
     getWeatherData(coordinates?.lat, coordinates?.lng).then((data) => {
-      console.log(data);
       setWeather(data)
     })
 
-    getPlacesData(type, bounds?.sw, bounds?.ne).then((data) => {
-      console.log(data); 
+    getPlacesData(type, bounds?.sw, bounds?.ne).then((data) => { 
       setPlaces(data)
       setFilteredPlaces([])
       setIsLoading(false)
