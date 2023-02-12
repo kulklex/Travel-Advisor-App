@@ -56,6 +56,7 @@ export default function App() {
     <>
       <CssBaseline/>
       <Header setCoordinates={setCoordinates}/>
+      <br/>
       <Grid container spacing={3} style={{ width: '100%' }} >
         <Grid item xs={12} md={4}>
           <List type={type} rating={rating} setType={setType} setRating={setRating} places={filteredPlaces?.length ? filteredPlaces : places} childClicked={childClicked} isLoading={isLoading}/>

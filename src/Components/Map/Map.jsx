@@ -4,10 +4,11 @@ import useStyles from './styles'
 import { Paper, Typography, useMediaQuery } from '@mui/material';
 import Rating from '@mui/material/Rating';
 import { LocationOnOutlined } from '@mui/icons-material';
+import mapStyles from '../../mapStyles'
 
 const Map = ({setCoordinates, setBounds, coordinates, places, setChildClicked}) => {
     const classes = useStyles()
-    const isNotMobile = useMediaQuery('(min-width:600px)')
+    const isDesktop = useMediaQuery('(min-width:600px)')
 
     
 
@@ -21,11 +22,12 @@ const Map = ({setCoordinates, setBounds, coordinates, places, setChildClicked}) 
         <div className={classes.mapContainer}>
             <GoogleMapReact bootstrapURLKeys={{ key: process.env.REACT_APP_GOOGLE_MAPS_API_KEY}} 
                 defaultCenter={coordinates} center={coordinates} defaultZoom={14} margin={[50, 50, 50, 50]} 
-                options={''} onChange={(e) => handleChange(e)} onChildClick={(child) => setChildClicked(child)}
+                options={{zoomControl: true, mapTypeControl: false, streetViewControl: false, styles: mapStyles, disableDefaultUI: true}}
+                onChange={(e) => handleChange(e)} onChildClick={(child) => setChildClicked(child)}
             >
-                    {places && places?.map((place) => (
-                    <div key={place?.name} className={classes.markerContainer} lat={Number(place?.latitude)} lng={Number(place?.longitude)}>
-                        {isNotMobile ? (<LocationOnOutlined color="primary" fontSize='large'/>) 
+                    {places?.length && places?.map((place, i) => (
+                    <div key={i} className={classes.markerContainer} lat={Number(place?.latitude)} lng={Number(place?.longitude)}>
+                        {!isDesktop ? (<LocationOnOutlined color="primary" fontSize='large'/>) 
                         : (<Paper elevation={3} className={classes.paper}>
                             <Typography className={classes.typography} variant="subtitle2" gutterBottom >
                                 {place?.name}

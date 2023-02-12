@@ -13,10 +13,7 @@ const List = ({type, setType, rating, setRating, places, childClicked, isLoading
     // Anytime there's click on the map, this will make it scroll to that location
     // The useEffect will repeat this funtionality everytime there's a change in places 
     useEffect(() => {
-        const refs = Array(places?.length).fill().map((_, i) => elementRefs[i] || createRef()) //Underscore here means we're not interested in the iterated values
-
-        setElementRefs(refs)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+        setElementRefs((refs) => Array(places.length).fill().map((_, i) => refs[i] || createRef()));
     }, [places])
 
 
@@ -38,7 +35,7 @@ const List = ({type, setType, rating, setRating, places, childClicked, isLoading
                 </Select>
                 </FormControl>
                 
-                <FormControl className={classes.formControl} style={{padding: '5px'}}>
+                {/* <FormControl className={classes.formControl} style={{padding: '5px'}}>
                     <FormLabel>Rating</FormLabel>
                     <Select id="rating" value={rating} onChange={(e) => setRating(e.target.value)}>
                         <MenuItem  value="">All</MenuItem>
@@ -46,7 +43,7 @@ const List = ({type, setType, rating, setRating, places, childClicked, isLoading
                         <MenuItem value="4">Above 4.0</MenuItem>
                         <MenuItem value="4.5">Above 4.5</MenuItem>
                     </Select>
-                </FormControl>
+                </FormControl> */}
                 <Grid container spacing={3} className={classes.list}>
                     {places && places?.map((place, i) => (
                     <Grid item key={i} xs={12}>

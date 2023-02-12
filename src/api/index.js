@@ -3,8 +3,7 @@ import axios from "axios"
 import { toast } from "react-toastify"
 
 
-export const getPlacesData = async ({type, sw, ne}) => {
-    console.log(type)
+export const getPlacesData = async (type, sw, ne) => {
     try {
         const res = await  axios.get(`https://travel-advisor.p.rapidapi.com/${type}/list-in-boundary`, {
             params: {
@@ -18,8 +17,7 @@ export const getPlacesData = async ({type, sw, ne}) => {
                 'X-RapidAPI-HOST': 'travel-advisor.p.rapidapi.com',
               },
             })
-            console.log(res?.data)
-        const {data} = res
+        const {data: {data}} = res
         return data
     } catch (error) {
         if(error.response){
