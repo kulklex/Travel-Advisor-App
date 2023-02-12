@@ -6,7 +6,7 @@ import PlaceDetails from './../PlaceDetails/PlaceDetails';
 
 const List = ({type, setType, rating, setRating, places, childClicked, isLoading}) => {
     const classes = useStyles()
-
+    
     
     const [elementRefs, setElementRefs] = useState([])
 
@@ -48,7 +48,7 @@ const List = ({type, setType, rating, setRating, places, childClicked, isLoading
                     </Select>
                 </FormControl>
                 <Grid container spacing={3} className={classes.list}>
-                    {places?.map((place, i) => (
+                    {places && places?.map((place, i) => (
                     <Grid item key={i} xs={12}>
                         <PlaceDetails place={place} selected={Number(childClicked) === i} refProp={elementRefs[i]}/>
                     </Grid>))}

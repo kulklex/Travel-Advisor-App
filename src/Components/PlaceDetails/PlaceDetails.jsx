@@ -1,5 +1,6 @@
 import React from 'react';
-import Rating, { Box, Button, Card, CardActions, CardContent, CardMedia, Chip, Typography } from '@mui/material';
+import { Box, Button, Card, CardActions, CardContent, CardMedia, Chip, Typography } from '@mui/material';
+import Rating from '@mui/material/Rating'
 import useStyles from './styles'
 import { LocationOnOutlined, PhoneOutlined } from '@mui/icons-material';
 

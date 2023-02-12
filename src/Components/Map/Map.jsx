@@ -2,7 +2,7 @@ import React from 'react';
 import GoogleMapReact from 'google-map-react';
 import useStyles from './styles'
 import { Paper, Typography, useMediaQuery } from '@mui/material';
-import Rating from '@mui/material';
+import Rating from '@mui/material/Rating';
 import { LocationOnOutlined } from '@mui/icons-material';
 
 const Map = ({setCoordinates, setBounds, coordinates, places, setChildClicked}) => {
@@ -23,7 +23,7 @@ const Map = ({setCoordinates, setBounds, coordinates, places, setChildClicked}) 
                 defaultCenter={coordinates} center={coordinates} defaultZoom={14} margin={[50, 50, 50, 50]} 
                 options={''} onChange={(e) => handleChange(e)} onChildClick={(child) => setChildClicked(child)}
             >
-                    {places?.map((place) => (
+                    {places && places?.map((place) => (
                     <div key={place?.name} className={classes.markerContainer} lat={Number(place?.latitude)} lng={Number(place?.longitude)}>
                         {isNotMobile ? (<LocationOnOutlined color="primary" fontSize='large'/>) 
                         : (<Paper elevation={3} className={classes.paper}>
